@@ -1,2 +1,2 @@
-#Disease Spread Simulator
+# Disease Spread Simulator
 Created as a project at AGH UST
