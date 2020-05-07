@@ -1,0 +1,15 @@
+# comments in config should look like this
+# population configuration
+population_size 100
+initial_infected_number 3
+
+# plane configuration
+# map_type: can be either rectangle or hexagon
+map_type hexagon
+radius 50
+height 10
+width 10
+hex_size 1
+
+# disease parameters
+mortality 0.1
