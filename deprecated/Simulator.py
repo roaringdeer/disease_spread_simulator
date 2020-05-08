@@ -1,7 +1,5 @@
-from time import sleep
-
 from Configuration import Configuration as cfg
-from Plane import Plane, Hexagon
+from Plane import Plane
 from Population import Population
 from Drawer import Drawer
 
@@ -14,6 +12,7 @@ class Simulator:
         self.population = Population()
         self.population.scatter(self.plane)
         self.drawer = Drawer()
+        print(len(self.plane.hexagons))
         pass
 
     def tick(self) -> None:

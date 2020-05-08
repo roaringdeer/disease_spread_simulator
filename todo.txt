@@ -1,0 +1,4 @@
+TODO implement container for Overseer (to create multiple instances of grids and society)
+TODO implement variables responsible for determining state changes
+TODO optimize code
+TODO somehow get matplotlib and moviepy to work together

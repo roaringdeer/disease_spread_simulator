@@ -1,5 +1,5 @@
 from copy import deepcopy
-from Enums import State, Neighbour
+from Enums import State
 from Person import Person
 from Configuration import Configuration as cfg
 from Plane import Plane, Point
@@ -46,20 +46,20 @@ class Population:
 
     def get_people_near(self, point):
         to_return = []
-        for hexes in self.population:
-            diff = point - hexes.coordinates
+        for person in self.population:
+            diff = point - person.coordinates
             if diff == Point(1, 0):
-                to_return.append(hexes)
+                to_return.append(person)
             elif diff == Point(-1, 0):
-                to_return.append(hexes)
+                to_return.append(person)
             elif diff == Point(0, 1):
-                to_return.append(hexes)
+                to_return.append(person)
             elif diff == Point(-1, 1):
-                to_return.append(hexes)
+                to_return.append(person)
             elif diff == Point(1, -1):
-                to_return.append(hexes)
+                to_return.append(person)
             elif diff == Point(0, -1):
-                to_return.append(hexes)
+                to_return.append(person)
         return to_return
 
     def get_susceptible_count(self):

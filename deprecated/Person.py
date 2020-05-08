@@ -1,4 +1,3 @@
-from copy import deepcopy
 from typing import List
 from Enums import State, Neighbour
 from Hexagon import *
@@ -15,36 +14,34 @@ class Person(Hexagon):
         self.__death_counter = 0
 
     def __str__(self):
-        return "|{:>5}|{:>14}|{:^9}|".format(self.id, self.state.name, self.coordinates)
+        return "<id:{} state:{} coord:{}>".format(self.id, self.state.name, self.coordinates)
 
     def get_allowed_moves(self, people_around: List[Hexagon], available_hexes) -> list:
         if len(people_around) == 0:
             return [Neighbour.NOPE]
-        moves = [deepcopy(hexagon) for hexagon in available_hexes]
-        moves = [x for x in moves if x not in people_around]
+        moves = [x for x in available_hexes if x not in people_around]
         if len(moves) == 0:
             return [Neighbour.NOPE]
         return moves
 
-    def is_infected(self, population) -> bool:
-        nearby = population.get_people_near(self.coordinates)
-        for person in nearby:
-            if person.state == State.Infectious and self.state == State.Susceptible:
-                return True
+    def is_infected(self, nearby) -> bool:
+        if self.state == State.Susceptible:
+            for person in nearby:
+                if person.state == State.Infectious:
+                    return True
         return False
-
-    def get_surrounding_people(self, population):
-        return util.get_surrounding_converted(self.coordinates, population.population)
 
     def go_brr(self, population, available_hexes):
         random.seed()
-        death_probability = self.__death_counter*cfg.get("mortality")//100
-
-        moves = self.get_allowed_moves(self.get_surrounding_people(population), available_hexes)
+        # death_probability = self.__death_counter*cfg.get("mortality")//100
+        nearby = population.get_people_near(self.coordinates)
+        nearby_enum = util.point_list2enum(self.coordinates, [x.coordinates for x in nearby])
+        moves = self.get_allowed_moves(nearby_enum, available_hexes)
         move = random.choice(moves)
+        # move = moves[0]
         if self.state == State.Infectious:
             self.__death_counter += 1
-        self.update_state(population)
+        self.update_state(nearby)
         self.move(move)
 
     def update_state(self, surrounding):
@@ -86,4 +83,4 @@ class Person(Hexagon):
         self.coordinates.j -= 1
 
     def coord2move(self, target: Hexagon):
-        return util.conv_point2enum(target.coordinates, self.coordinates)
+        return util.get_direction(target.coordinates, self.coordinates)

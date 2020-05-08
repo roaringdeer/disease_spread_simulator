@@ -6,6 +6,7 @@ class State(Enum):
     Infectious = auto()
     Recovered = auto()
     Deceased = auto()
+    Inactive = auto()
 
 
 class Neighbour(Enum):
@@ -18,12 +19,11 @@ class Neighbour(Enum):
     SW = 6
 
 
-#
-# class Move(Enum):
-#     NOPE = 0
-#     E = 1
-#     W = 2
-#     NE = 3
-#     NW = 4
-#     SE = 5
-#     SW = 6
+class Move(Enum):
+    NOPE = 0
+    E = 1
+    W = 2
+    NE = 3
+    NW = 4
+    SE = 5
+    SW = 6

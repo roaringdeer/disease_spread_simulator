@@ -1,9 +1,6 @@
 
-# class MetaConfiguration:
-#     def __getitem__(cls, item):
 
-
-class Configuration:
+class Configuration:  # class responsible for getting and storing configuration values
     __values = {}
 
     @staticmethod

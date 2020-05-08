@@ -1,5 +1,4 @@
 import random
-from copy import deepcopy
 from typing import List
 import Utilities as util
 from Enums import Neighbour
@@ -10,6 +9,7 @@ class Plane:
 
     def __init__(self, width: int = 1, height: int = 1, radius: int = 1, plane_type: str = 'hexagon'):
         self.hexagons = []
+
         if plane_type == 'hexagon':
             self.__make_hexagons_hexagon(radius)
         elif plane_type == 'rectangle':
