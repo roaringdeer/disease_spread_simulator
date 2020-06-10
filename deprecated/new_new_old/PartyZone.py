@@ -1,0 +1,4 @@
+
+
+class PartyZone:
+    pass

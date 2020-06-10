@@ -1,7 +1,7 @@
-from Configuration import Configuration as cfg
+from deprecated.new_new_old.Configuration import Configuration as cfg
 from Plane import Plane
-from Population import Population
-from Drawer import Drawer
+from deprecated.new_new_old.Population import Population
+from deprecated.new_old.Drawer import Drawer
 
 
 class Simulator:

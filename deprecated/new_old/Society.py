@@ -1,6 +1,6 @@
-from Being import Being
-from Configuration import Configuration as cfg
-from Enums import State
+from deprecated.new_old.Being import Being
+from deprecated.new_new_old.Configuration import Configuration as cfg
+from deprecated.new_old.Enums import State
 
 
 class Society:

@@ -1,7 +1,7 @@
 from copy import deepcopy
-from Enums import State
-from Person import Person
-from Configuration import Configuration as cfg
+from deprecated.new_old.Enums import State
+from deprecated.new_new_old.Person import Person
+from deprecated.new_new_old.Configuration import Configuration as cfg
 from Plane import Plane, Point
 
 

@@ -1,8 +1,8 @@
 import random
-from Configuration import Configuration as cfg
-from Enums import State
-from Grid import Grid
-from Society import Society
+from deprecated.new_new_old.Configuration import Configuration as cfg
+from deprecated.new_old.Enums import State
+from deprecated.new_old.Grid import Grid
+from deprecated.new_old.Society import Society
 
 
 class Overseer:             # class responsible for simulation single grid

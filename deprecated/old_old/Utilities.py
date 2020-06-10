@@ -1,4 +1,4 @@
-from Enums import Move
+from deprecated.new_old.Enums import Move
 
 
 # E = +1, 0

@@ -1,5 +1,5 @@
 from typing import List
-from Enums import State, Neighbour
+from deprecated.new_old.Enums import State, Neighbour
 from Hexagon import *
 import Utilities as util
 import random

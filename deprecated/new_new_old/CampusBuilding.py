@@ -1,0 +1,4 @@
+
+
+class CampusBuilding:
+    pass

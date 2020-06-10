@@ -1,7 +1,7 @@
 import random
-from Enums import Move
+from deprecated.new_old.Enums import Move
 import numpy as np
-from Configuration import Configuration as cfg
+from deprecated.new_new_old.Configuration import Configuration as cfg
 
 
 class Grid:  # class representing grid

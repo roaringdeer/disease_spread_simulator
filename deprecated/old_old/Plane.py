@@ -1,7 +1,7 @@
 import random
 from typing import List
 import Utilities as util
-from Enums import Neighbour
+from deprecated.new_old.Enums import Neighbour
 from Hexagon import *
 
 

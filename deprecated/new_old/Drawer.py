@@ -1,10 +1,9 @@
 import matplotlib.pyplot as plt
 from matplotlib.patches import *
-import numpy as np
-from Configuration import Configuration as cfg
+from deprecated.new_new_old.Configuration import Configuration as cfg
 
 
-from Enums import State
+from deprecated.new_old.Enums import State
 
 
 class Drawer:  # class responsible for drawing current iteration on matplotlib plot

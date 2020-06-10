@@ -1,4 +1,4 @@
-from Enums import State
+from deprecated.new_old.Enums import State
 
 
 class Being:  # basic simulation unit, represents a human being

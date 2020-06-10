@@ -1,6 +1,6 @@
 import numpy as np
-from Configuration import Configuration as cfg
-from deprecated.Point import Point
+from deprecated.new_new_old.Configuration import Configuration as cfg
+from deprecated.old_old.Point import Point
 
 
 class Hexagon:

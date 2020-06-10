@@ -1,17 +1,18 @@
-from Drawer import Drawer as drw
-from Configuration import Configuration as cfg
-from Overseer import Overseer
+from Clock import Clock
+from Mast5G import Mast5G
 
 
 def main():
-    cfg.load()                                      # load and show configuration values
-    cfg.print_all()
-    ov = Overseer()                                 # create overseer
-    ov.society.preview()
-    drw.draw_from_grid_WIP(ov.grid, ov.society)     # draw iteration 0
-    for i in range(20):                             # simulate and draw concurrent iterations
-        ov.tick()
-        drw.draw_from_grid_WIP(ov.grid, ov.society)
+    clk = Clock()
+    mast = Mast5G()
+    try:
+        for i in range(15700):
+            mast.tick()
+    except RuntimeError:
+        print(mast)
+    except ValueError:
+        print("Zła całkowita ilość studentów - coś poszło nie tak")
+    print(mast.log)
 
 
 if __name__ == '__main__':
