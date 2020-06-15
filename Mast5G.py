@@ -186,7 +186,7 @@ class Mast5G:
                      self.deceased_count,
                      self.__total_student_count-len(self.__tracking["quarantine"])-len(self.__tracking["graveyard"]),
                      len(self.__tracking["quarantine"]),
-                     len(self.__tracking["graveyard"])), end="")
+                     len(self.__tracking["graveyard"])))
         # print(self.__total_student_count, len(self.__tracking["quarantine"])+len(self.__tracking["graveyard"]))
 
         # dobowe zapisywanie stanu
@@ -195,7 +195,7 @@ class Mast5G:
                   self.deceased_count)
             self.log.append([self.susceptible_count, self.infectious_count, self.recovered_count, self.deceased_count])
 
-        print(self.__tracking)
+        # print(self.__tracking)
 
         # zakończenie jak już nic nie może się zarazić
         if self.infectious_count == 0:

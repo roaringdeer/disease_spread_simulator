@@ -49,3 +49,17 @@ impreza - timeout na 30min - 2h (losowane)\
 nauka   - timeout na 1h 30min -  4h (losowane)\
 sport - timeout na 1h30min - 2h30min (losowane)\
 sen - timeout na 6h - 10h (losowane)
+
+kwarantanna - quarantine probability
+higiena - Student.hygiene
+
+Scenariusz | parametr higieny |prawdopodobieństwo wykrycia choroby | parametr dobrego wykrycia | parametr błędnego wykrycia
+---|---|---|---|---
+brak kwarantanny, zła higiena | 0.8 | 0 | 1 | 0
+brak kwarantanny, średnia higiena | 0.5 | 0 | 1 | 0
+brak kwarantanny, dobra higiena | 0.1 | 0 | 1 | 0
+kwarantanna z dobrym testem, średnia higiena | 0.5 | 5 | 0.1 | 0
+kwarantanna z średnim testem, średnia higiena | 0.5 | 5 | 0.5 | 0
+kwarantanna z złym testem, średnia higiena | 0.5 | 5 | 1 | 0
+kwarantanna z średnim testem, średnia higiena z niewielkim błędnym wykryciem | 0.5 | 5 | 1 | 0.5
+kwarantanna z średnim testem, średnia higiena z dużym błędnym wykryciem | 0.5 | 5 | 1 | 0.1

@@ -17,7 +17,7 @@ mast_param = {
             "party": 10
         },
         # prawdopodobieństwo że dany student zostanie wysłany na kwarantannę
-        "quarantine": 10
+        "quarantine": 5
     },
     # o ile mniejsza szansa, że daną akcję wykonamy w czasie do tego nie przeznaczonym
     # im większa wartość, tym mniejsze prawdopodobieństwo
@@ -59,7 +59,7 @@ mast_param = {
     },
     # ilość osób zarażonych na samym początku symulacji
     "initial_infectious_count": {
-        "dorms": 1,
+        "dorms": 0,
         "outside": 1
     }
 }
