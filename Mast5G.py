@@ -203,17 +203,7 @@ class Mast5G:
         # self.susceptible_count, self.infectious_count, self.recovered_count, self.deceased_count])
 
         if self.clk.counter % 327 == 0:
-
-            self.logged_values["time"].append("{}/{:02}:{:02}".format(self.clk.day_counter,
-                                                                self.clk.hour_counter,
-                                                                self.clk.minute_counter))
-            self.logged_values["susceptible_count"].append(self.susceptible_count)
-            self.logged_values["infectious_count"].append(self.infectious_count)
-            self.logged_values["recovered_count"].append(self.recovered_count)
-            self.logged_values["deceased_count"].append(self.deceased_count)
-
-            self.logged_values["free"].append(free)
-            self.logged_values["quarantined"].append(len(self.__tracking["quarantine"]))
+            self.__log_values(free)
 
             # self.log.append({"susceptible_count": self.susceptible_count,
             #                  "infectious_count": self.infectious_count,
@@ -225,12 +215,15 @@ class Mast5G:
         # zakończenie jak już nic nie może się zarazić
         if self.infectious_count == 0:
             if self.recovered_count > 0 or self.deceased_count > 0:
+                self.__log_values(free)
                 raise RuntimeError
-        if self.infectious_count == check_sum:
-            raise RuntimeError
-        # zakończenie symulacji gdy minie 5 dni
-        if self.clk.day_counter == 5:
-            raise RuntimeError
+
+        # if self.infectious_count == check_sum:
+        #     raise RuntimeError
+
+        # # zakończenie symulacji gdy minie 5 dni
+        # if self.clk.day_counter == 31:
+        #     raise RuntimeError
 
         # zakończenie jeśli zaginął gdzieś student (suma studentów jest różna od początkowej liczby studentów)
         if check_sum != self.__total_student_count:
@@ -392,6 +385,18 @@ class Mast5G:
         if r < prob:
             return True
         return False
+
+    def __log_values(self, free):
+
+        self.logged_values["time"].append("{}/{:02}:{:02}".format(self.clk.day_counter,
+                                                                  self.clk.hour_counter,
+                                                                  self.clk.minute_counter))
+        self.logged_values["susceptible_count"].append(self.susceptible_count)
+        self.logged_values["infectious_count"].append(self.infectious_count)
+        self.logged_values["recovered_count"].append(self.recovered_count)
+        self.logged_values["deceased_count"].append(self.deceased_count)
+        self.logged_values["free"].append(free)
+        self.logged_values["quarantined"].append(len(self.__tracking["quarantine"]))
 
     # zarażanie studenciaków
     # def __infect_people(self):

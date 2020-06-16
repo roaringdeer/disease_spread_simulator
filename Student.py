@@ -65,6 +65,6 @@ class Student:
         random.seed()
         r = random.random()
         prob = sim_param["probability"]["recovery"]
-        if r < prob:
+        if r*100 < prob:
             return True
         return False
