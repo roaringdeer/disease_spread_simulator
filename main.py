@@ -2,6 +2,8 @@ from Clock import Clock
 from Mast5G import Mast5G
 import Configuration
 import Plotter
+import TextLogger
+
 
 def main():
     # parameters of each scenario
@@ -15,6 +17,15 @@ def main():
                   [0.5, 5, 1, 0.5],
                   [0.5, 5, 1, 0.1]
                   ]
+    names = ["set1.txt",
+             "set2.txt",
+             "set3.txt",
+             "set4.txt",
+             "set5.txt",
+             "set6.txt",
+             "set7.txt",
+             "set8.txt"]
+    i=0
     # list of collected data
     data_logger = []
     # simulation of all scenarios
@@ -38,6 +49,7 @@ def main():
             print("Zła całkowita ilość studentów - coś poszło nie tak")
         data_logger.append(mast.log)
         Plotter.plot(mast.logged_values)
+        TextLogger.write_to_file(names[i], mast.logged_values)
         print(mast.log)
 
 
