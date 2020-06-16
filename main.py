@@ -52,7 +52,10 @@ def main():
             except ValueError:
                 print("Zła całkowita ilość studentów - coś poszło nie tak")
             data_logger.append(mast.log)
-            Plotter.plot(mast.logged_values)
+            try:
+                Plotter.plot(i, mast.logged_values)
+            finally:
+                pass
             file_name = "{}_try_{}.txt".format(names[i], j)
             TextLogger.write_to_file(file_name, mast.logged_values)
             i += 1
@@ -60,4 +63,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+        main()

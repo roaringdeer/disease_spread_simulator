@@ -74,8 +74,8 @@ student_param = {
     "symptoms": 0.2,
     # czas trwania bycia zarażonym
     "infected_counter": {
-        "min": 654*12,
-        "max": 654*24,
+        "min": 654*(24+12),
+        "max": 654*24*5,
         }
     }
 
@@ -87,7 +87,8 @@ graph_param = {
         "sport_centre": 0.015,
         "party_zone": 0.02,
         "road": 0.01,
-        "quarantine": 1
+        "quarantine": 1,
+        "graveyard": 1
     }
 }
 

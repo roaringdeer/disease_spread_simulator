@@ -34,7 +34,8 @@ class AGHGraph:
             NodeType.SportCentre: sim_param["infectiousness"]["sport_centre"],
             NodeType.PartyZone: sim_param["infectiousness"]["party_zone"],
             NodeType.Road: sim_param["infectiousness"]["road"],
-            NodeType.Quarantine: sim_param["infectiousness"]["quarantine"]
+            NodeType.Quarantine: sim_param["infectiousness"]["quarantine"],
+            NodeType.Graveyard: sim_param["infectiousness"]["graveyard"]
         }
 
         # stworzenie wszystkich tras za pomocą algorytmu Dijkstry
