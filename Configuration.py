@@ -74,8 +74,8 @@ student_param = {
     "symptoms": 0.2,
     # czas trwania bycia zarażonym
     "infected_counter": {
-        "min": 654*24,
-        "max": 654*24*3,
+        "min": 654*12,
+        "max": 654*24,
         }
     }
 

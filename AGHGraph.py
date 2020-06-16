@@ -25,6 +25,7 @@ class AGHGraph:
         self.sport_centre = [5, 6, 16]
         self.party_zone = [12, 17]
         self.quarantine = ["quarantine"]
+        self.graveyard = ["graveyard"]
 
         # współczynnik zarażalności w zależności od miejsca
         self.place_infectiousness = {
@@ -130,6 +131,8 @@ class AGHGraph:
         if isinstance(location, str):
             if location in self.quarantine:
                 return NodeType.Quarantine
+            elif location in self.graveyard:
+                return NodeType.Graveyard
         elif isinstance(location, tuple):
             return NodeType.Road
         elif isinstance(location, int):

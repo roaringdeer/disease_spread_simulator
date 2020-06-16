@@ -16,6 +16,7 @@ class NodeType(Enum):
     PartyZone = auto()
     Road = auto()
     Quarantine = auto()
+    Graveyard = auto()
 
 
 class TileType(Enum):
