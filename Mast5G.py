@@ -10,7 +10,7 @@ from Configuration import mast_param as sim_param
 class Mast5G:
     def __init__(self):
         # stworzenie zegara
-        self.clk = Clock(5232)  # 8:00
+        self.clk = Clock(5231)  # 1 tick przed 8:00
 
         # stworzenie grafu
         self.agh_graph = AGHGraph()
@@ -38,6 +38,14 @@ class Mast5G:
 
         # inicjalizuje liste przechowujaca dane z kazdego dnia
         self.log = []
+
+        self.logged_values = {"time": [],
+                              "susceptible_count": [],
+                              "infectious_count": [],
+                              "recovered_count": [],
+                              "deceased_count": [],
+                              "free": [],
+                              "quarantined": []}
 
         # fragment kodu do testowania algorytmu dla pojedynczego studenta
         # print(self.__tracking)
@@ -176,7 +184,8 @@ class Mast5G:
 
         # zliczenie wszystkich osób (do sprawdzenia poprawności wykonania symulacji)
         check_sum = self.susceptible_count + self.infectious_count + self.recovered_count + self.deceased_count
-
+        # obliczenie wszystkich osób na wolności
+        free = self.__total_student_count - len(self.__tracking["quarantine"]) - len(self.__tracking["graveyard"])
         # wypisanie aktualnego stanu symulacji w danym kroku
         print("{}\t | S: {:06} | I: {:06} | R: {:06} | D: {:06}| <FREE: {:06} | QUARANTINE: {:06}| GRAVEYARD: {:06}>".
               format(self.clk,
@@ -184,23 +193,44 @@ class Mast5G:
                      self.infectious_count,
                      self.recovered_count,
                      self.deceased_count,
-                     self.__total_student_count-len(self.__tracking["quarantine"])-len(self.__tracking["graveyard"]),
+                     free,
                      len(self.__tracking["quarantine"]),
                      len(self.__tracking["graveyard"])))
         # print(self.__total_student_count, len(self.__tracking["quarantine"])+len(self.__tracking["graveyard"]))
 
-        # dobowe zapisywanie stanu
-        if self.clk.counter == 15696:
-            print("Raport dobowy: ", self.clk, self.susceptible_count, self.infectious_count, self.recovered_count,
-                  self.deceased_count)
-            self.log.append([self.susceptible_count, self.infectious_count, self.recovered_count, self.deceased_count])
+        # dobowe zapisywanie stanu if self.clk.counter == 15696: print("Raport dobowy: ", self.clk,
+        # self.susceptible_count, self.infectious_count, self.recovered_count, self.deceased_count) self.log.append([
+        # self.susceptible_count, self.infectious_count, self.recovered_count, self.deceased_count])
 
-        # print(self.__tracking)
+        if self.clk.counter % 327 == 0:
+
+            self.logged_values["time"].append("{}/{:02}:{:02}".format(self.clk.day_counter,
+                                                                self.clk.hour_counter,
+                                                                self.clk.minute_counter))
+            self.logged_values["susceptible_count"].append(self.susceptible_count)
+            self.logged_values["infectious_count"].append(self.infectious_count)
+            self.logged_values["recovered_count"].append(self.recovered_count)
+            self.logged_values["deceased_count"].append(self.deceased_count)
+
+            self.logged_values["free"].append(free)
+            self.logged_values["quarantined"].append(len(self.__tracking["quarantine"]))
+
+            # self.log.append({"susceptible_count": self.susceptible_count,
+            #                  "infectious_count": self.infectious_count,
+            #                  "recovered_count": self.recovered_count,
+            #                  "deceased_count": self.deceased_count,
+            #                  "free": self.__total_student_count-len(self.__tracking["quarantine"])-len(self.__tracking["graveyard"]),
+            #                  "quarantined": len(self.__tracking["quarantine"])})
 
         # zakończenie jak już nic nie może się zarazić
         if self.infectious_count == 0:
             if self.recovered_count > 0 or self.deceased_count > 0:
                 raise RuntimeError
+        if self.infectious_count == check_sum:
+            raise RuntimeError
+        # zakończenie symulacji gdy minie 5 dni
+        if self.clk.day_counter == 5:
+            raise RuntimeError
 
         # zakończenie jeśli zaginął gdzieś student (suma studentów jest różna od początkowej liczby studentów)
         if check_sum != self.__total_student_count:

@@ -74,19 +74,40 @@ student_param = {
     "symptoms": 0.2,
     # czas trwania bycia zarażonym
     "infected_counter": {
-        "min": 15696*12,
-        "max": 15696*20
+        "min": 654*8,  # 15696*1,
+        "max": 654*12,  # 15696*20
         }
     }
 
 graph_param = {
     # współczynniki zarażalności w danym wierzchołku
     "infectiousness": {
-        "dormitory": 0.02,
-        "campus_building": 0.02,
-        "sport_centre": 0.02,
-        "party_zone": 0.02,
-        "road": 0.02,
+        "dormitory": 0.01,
+        "campus_building": 0.01,
+        "sport_centre": 0.01,
+        "party_zone": 0.01,
+        "road": 0.01,
         "quarantine": 1
     }
 }
+
+
+def dict_print(d, indent: int = 0):
+    for key, value in d.items():
+        if isinstance(value, dict):
+            print('\t' * indent + str(key))
+            dict_print(value, indent+1)
+        else:
+            print('\t' * indent + str(key) + ": " + str(value))
+
+
+def display():
+    print("=== mast_param ===")
+    dict_print(mast_param)
+    print()
+    print("=== student_param ===")
+    dict_print(student_param)
+    print()
+    print("=== graph_param ===")
+    dict_print(graph_param)
+    print()

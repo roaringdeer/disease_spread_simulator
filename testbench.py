@@ -1,12 +1,23 @@
+import Plotter
+import TextLogger
+from Mast5G import Mast5G
+
+
 def main():
-    temp = {1: 2, 2: 3, (3, 4): 4}
-    print(temp[3, 4])
-    print(temp[(3, 4)])
-    temp1 = {}
-    for key, val in temp.items():
-        temp1[key] = val
-    print(temp1)
+    mast = Mast5G()
+
+    try:
+        # while True:
+        for i in range(1000):
+            mast.tick()
+    except RuntimeError:
+        print(mast)
+    except ValueError:
+        print("Zła całkowita ilość studentów - coś poszło nie tak")
+    Plotter.plot(mast.logged_values)
+    TextLogger.write_to_file("test.txt", mast.logged_values)
 
 
 if __name__ == '__main__':
     main()
+0
