@@ -17,7 +17,7 @@ mast_param = {
             "party": 10
         },
         # prawdopodobieństwo że dany student zostanie wysłany na kwarantannę
-        "quarantine": 5
+        "quarantine": 0
     },
     # o ile mniejsza szansa, że daną akcję wykonamy w czasie do tego nie przeznaczonym
     # im większa wartość, tym mniejsze prawdopodobieństwo
