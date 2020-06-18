@@ -4,11 +4,11 @@ from AGHGraph import AGHGraph
 from Clock import Clock
 from Student import Student
 from Enumeration import NodeType, Action, State
-from Configuration import mast_param as sim_param
+import Configuration
 
 
 class Mast5G:
-    def __init__(self):
+    def __init__(self, is_adaptive: bool = False, adaptive_params: dict = None):
         # stworzenie zegara
         self.clk = Clock(5231)  # 1 tick przed 8:00
 
@@ -46,6 +46,8 @@ class Mast5G:
                               "deceased_count": [],
                               "free": [],
                               "quarantined": []}
+        self.is_adaptive = is_adaptive
+        self.adaptive_params = adaptive_params
 
         # fragment kodu do testowania algorytmu dla pojedynczego studenta
         # print(self.__tracking)
@@ -71,13 +73,13 @@ class Mast5G:
 
     # stworzenie studentów i rozłożenie ich po grafie
     def __make_sheeple(self):
-        infected = sim_param["initial_infectious_count"]["dorms"]
-        infected_outside = sim_param["initial_infectious_count"]["outside"]
+        infected = Configuration.mast_param["initial_infectious_count"]["dorms"]
+        infected_outside = Configuration.mast_param["initial_infectious_count"]["outside"]
         for dorm in self.agh_graph.dormitories:
             if dorm == 0:
-                student_count = sim_param["student_count"]["outside"]
+                student_count = Configuration.mast_param["student_count"]["outside"]
             else:
-                student_count = sim_param["student_count"]["dorms"]
+                student_count = Configuration.mast_param["student_count"]["dorms"]
             for i in range(student_count):
                 self.__total_student_count += 1
                 new_sheep = Student(dorm)
@@ -186,24 +188,28 @@ class Mast5G:
         check_sum = self.susceptible_count + self.infectious_count + self.recovered_count + self.deceased_count
         # obliczenie wszystkich osób na wolności
         free = self.__total_student_count - len(self.__tracking["quarantine"]) - len(self.__tracking["graveyard"])
-        # wypisanie aktualnego stanu symulacji w danym kroku
-        print("{}\t | S: {:06} | I: {:06} | R: {:06} | D: {:06}| <FREE: {:06} | QUARANTINE: {:06}| GRAVEYARD: {:06}>".
-              format(self.clk,
-                     self.susceptible_count,
-                     self.infectious_count,
-                     self.recovered_count,
-                     self.deceased_count,
-                     free,
-                     len(self.__tracking["quarantine"]),
-                     len(self.__tracking["graveyard"])))
+
         # print(self.__total_student_count, len(self.__tracking["quarantine"])+len(self.__tracking["graveyard"]))
 
         # dobowe zapisywanie stanu if self.clk.counter == 15696: print("Raport dobowy: ", self.clk,
         # self.susceptible_count, self.infectious_count, self.recovered_count, self.deceased_count) self.log.append([
         # self.susceptible_count, self.infectious_count, self.recovered_count, self.deceased_count])
 
+        # wypisanie aktualnego stanu symulacji w danym kroku
+        print(
+            "{}\t | S: {:06} | I: {:06} | R: {:06} | D: {:06}| <FREE: {:06} | QUARANTINE: {:06}| GRAVEYARD: {:06}>".
+                format(self.clk,
+                       self.susceptible_count,
+                       self.infectious_count,
+                       self.recovered_count,
+                       self.deceased_count,
+                       free,
+                       len(self.__tracking["quarantine"]),
+                       len(self.__tracking["graveyard"])))
+
         if self.clk.counter % 327 == 0:
             self.__log_values(free)
+
 
             # self.log.append({"susceptible_count": self.susceptible_count,
             #                  "infectious_count": self.infectious_count,
@@ -311,64 +317,69 @@ class Mast5G:
     # zwraca czas ktory musi student przeczekac aby podjac kolejne dzialanie
     def __get_timeout(self, action):
         if action == Action.GoParty:
-            return random.randrange(sim_param["timeout"]["party"]["min"], sim_param["timeout"]["party"]["max"])
+            return random.randrange(Configuration.mast_param["timeout"]["party"]["min"],
+                                    Configuration.mast_param["timeout"]["party"]["max"])
         elif action == Action.GoSports:
-            return random.randrange(sim_param["timeout"]["sport"]["min"], sim_param["timeout"]["sport"]["max"])
+            return random.randrange(Configuration.mast_param["timeout"]["sport"]["min"],
+                                    Configuration.mast_param["timeout"]["sport"]["max"])
         elif action == Action.GoStudy:
-            return random.randrange(sim_param["timeout"]["study"]["min"], sim_param["timeout"]["study"]["max"])
+            return random.randrange(Configuration.mast_param["timeout"]["study"]["min"],
+                                    Configuration.mast_param["timeout"]["study"]["max"])
         elif action == Action.GoSleep:
-            return random.randrange(sim_param["timeout"]["sleep"]["min"], sim_param["timeout"]["sleep"]["max"])
+            return random.randrange(Configuration.mast_param["timeout"]["sleep"]["min"],
+                                    Configuration.mast_param["timeout"]["sleep"]["max"])
         elif action == Action.GoHome:
-            return random.randrange(sim_param["timeout"]["home"]["min"], sim_param["timeout"]["home"]["max"])
+            return random.randrange(Configuration.mast_param["timeout"]["home"]["min"],
+                                    Configuration.mast_param["timeout"]["home"]["max"])
         else:
-            return sim_param["timeout"]["default"]
+            return Configuration.mast_param["timeout"]["default"]
 
     # metody decydujace o akcji studenta
     def __is_party_time(self):
-        modifier = sim_param["probability_modifier"]["party"]
+        modifier = Configuration.mast_param["probability_modifier"]["party"]
         if 14388 < self.clk.counter < 15696 or 0 < self.clk.counter < 1308:
             modifier = 1
         random.seed()
         r = random.random() * 100 * modifier
-        if r < sim_param["probability"]["action"]["party"]:
+        if r < Configuration.mast_param["probability"]["action"]["party"]:
             return True
         return False
 
     def __is_study_time(self):
-        modifier = sim_param["probability_modifier"]["study"]
+        modifier = Configuration.mast_param["probability_modifier"]["study"]
         if 5232 < self.clk.counter < 11772:
             modifier = 1
         random.seed()
         r = random.random() * 100 * modifier
-        if r < sim_param["probability"]["action"]["study"]:
+        if r < Configuration.mast_param["probability"]["action"]["study"]:
             return True
         return False
 
     def __is_home_time(self):
-        modifier = sim_param["probability_modifier"]["home"]
+        modifier = Configuration.mast_param["probability_modifier"]["home"]
         random.seed()
         r = random.random() * 100 * modifier
-        if r < sim_param["probability"]["action"]["home"]:
+        if r < Configuration.mast_param["probability"]["action"]["home"]:
             return True
         return False
 
     def __is_sport_time(self):
-        modifier = sim_param["probability_modifier"]["sport"]
+        modifier = Configuration.mast_param["probability_modifier"]["sport"]
         if 5232 < self.clk.counter < 11772:
             modifier = 1
         random.seed()
         r = random.random() * 100 * modifier
-        if r < sim_param["probability"]["action"]["sport"]:
+        if r < Configuration.mast_param["probability"]["action"]["sport"]:
             return True
         return False
 
     def __is_sleep_time(self):
-        modifier = sim_param["probability_modifier"]["sleep"]
+        modifier = Configuration.mast_param["probability_modifier"]["sleep"]
         if 14388 < self.clk.counter < 15696 or 0 < self.clk.counter < 2616:
             modifier = 1
         random.seed()
         r = random.random() * 100 * modifier
-        if r < sim_param["probability"]["action"]["sleep"]:
+        if r < Configuration.mast_param["probability"]["action"]["sleep"]:
             return True
         return False
 
@@ -376,16 +387,19 @@ class Mast5G:
     def __is_quarantined(self, student_id):
         modifier = 1
         if self.sheeple[student_id].state == State.Infectious:
-            modifier = sim_param["probability_modifier"]["quarantine"]["right"]
+            modifier = Configuration.mast_param["probability_modifier"]["quarantine"]["right"]
         elif self.sheeple[student_id].state == State.Susceptible:
-            modifier = sim_param["probability_modifier"]["quarantine"]["wrong"]
+            if not Configuration.mast_param["false_positive_testing_for_quarantine"]:
+                return False
+            modifier = Configuration.mast_param["probability_modifier"]["quarantine"]["wrong"]
         random.seed()
         r = random.random() * 100 * modifier
-        prob = sim_param["probability"]["quarantine"]
+        prob = Configuration.mast_param["probability"]["quarantine"]
         if r < prob:
             return True
         return False
 
+    # zapisanie do logów wartości
     def __log_values(self, free):
 
         self.logged_values["time"].append("{}/{:02}:{:02}".format(self.clk.day_counter,
@@ -397,6 +411,19 @@ class Mast5G:
         self.logged_values["deceased_count"].append(self.deceased_count)
         self.logged_values["free"].append(free)
         self.logged_values["quarantined"].append(len(self.__tracking["quarantine"]))
+
+    # sprawdzenie czy trzeba zacząć działania adaptacyjne
+    def __is_dynamic_action_required(self):
+        if self.is_adaptive:
+            if self.infectious_count > 50:
+                return True
+        return False
+
+    # zmiana parametrów w działaniach adaptacyjnych
+    def __dynamic_actions(self):
+        if self.adaptive_params is not None:
+            Configuration.student_param["hygiene"] = self.adaptive_params["hygiene"]
+            Configuration.mast_param["probability"]["quarantine"] = self.adaptive_params["probability_quarantine"]
 
     # zarażanie studenciaków
     # def __infect_people(self):

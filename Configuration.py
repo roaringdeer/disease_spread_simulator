@@ -33,6 +33,7 @@ mast_param = {
             "wrong": 10
         }
     },
+    "false_positive_testing_for_quarantine": False,
     # określenie przedziałów czasu potrzebnych na wykonanie danego zadania
     "timeout": {
         "home": {
@@ -59,30 +60,30 @@ mast_param = {
     },
     # ilość osób zarażonych na samym początku symulacji
     "initial_infectious_count": {
-        "dorms": 0,
-        "outside": 1
+        "dorms": 1,
+        "outside": 0
     }
 }
 
 student_param = {
     "probability": {
-        "recovery": 10
+        "recovery": 60
     },
     # współczynnik higieny wpływa na prawdopodobieństwo zarażenia
-    "hygiene": 0.1,
+    "hygiene": 1,
     # współczynnik symptomatyczności wpływa na prawdopodobieństwo wykrycia
     "symptoms": 0.2,
     # czas trwania bycia zarażonym
     "infected_counter": {
-        "min": 654*(24+12),
-        "max": 654*24*5,
+        "min": 654*12,
+        "max": 654*24,
         }
     }
 
 graph_param = {
     # współczynniki zarażalności w danym wierzchołku
     "infectiousness": {
-        "dormitory": 0.01,
+        "dormitory": 0.005,
         "campus_building": 0.01,
         "sport_centre": 0.015,
         "party_zone": 0.02,
