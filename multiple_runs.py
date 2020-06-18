@@ -34,7 +34,7 @@ def main():
     # simulation of all scenarios
 
     for i in range(3):
-        for key, val in parameters:
+        for key, val in parameters.items():
             mast = Mast5G(val["adaptive"], val)
             try:
                 while True:

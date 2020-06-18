@@ -159,6 +159,9 @@ class Mast5G:
         # przejście do kolejnego ticku symulacji
         self.clk.tick()
 
+        if self.__is_dynamic_action_required():
+            self.__dynamic_actions()
+
         # wybranie nowego celu dla studentow nic nie robiacych
         self.__control_sheeple_minds()
 
@@ -415,7 +418,7 @@ class Mast5G:
     # sprawdzenie czy trzeba zacząć działania adaptacyjne
     def __is_dynamic_action_required(self):
         if self.is_adaptive:
-            if self.infectious_count > 50:
+            if self.infectious_count > 100:
                 return True
         return False
 
