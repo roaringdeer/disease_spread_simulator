@@ -159,8 +159,7 @@ class Mast5G:
         # przejście do kolejnego ticku symulacji
         self.clk.tick()
 
-        if self.__is_dynamic_action_required():
-            self.__dynamic_actions()
+
 
         # wybranie nowego celu dla studentow nic nie robiacych
         self.__control_sheeple_minds()
@@ -199,16 +198,21 @@ class Mast5G:
         # self.susceptible_count, self.infectious_count, self.recovered_count, self.deceased_count])
 
         # wypisanie aktualnego stanu symulacji w danym kroku
-        print(
-            "{}\t | S: {:06} | I: {:06} | R: {:06} | D: {:06}| <FREE: {:06} | QUARANTINE: {:06}| GRAVEYARD: {:06}>".
-                format(self.clk,
-                       self.susceptible_count,
-                       self.infectious_count,
-                       self.recovered_count,
-                       self.deceased_count,
-                       free,
-                       len(self.__tracking["quarantine"]),
-                       len(self.__tracking["graveyard"])))
+        # print(
+        #     "{}\t | S: {:06} | I: {:06} | R: {:06} | D: {:06}| <FREE: {:06} | QUARANTINE: {:06}| GRAVEYARD: {:06}>".
+        #         format(self.clk,
+        #                self.susceptible_count,
+        #                self.infectious_count,
+        #                self.recovered_count,
+        #                self.deceased_count,
+        #                free,
+        #                len(self.__tracking["quarantine"]),
+        #                len(self.__tracking["graveyard"])))
+
+        print(self.infectious_count, Configuration.mast_param["probability"]["quarantine"])
+
+        if self.__is_dynamic_action_required():
+            self.__dynamic_actions()
 
         if self.clk.counter % 327 == 0:
             self.__log_values(free)
@@ -418,7 +422,7 @@ class Mast5G:
     # sprawdzenie czy trzeba zacząć działania adaptacyjne
     def __is_dynamic_action_required(self):
         if self.is_adaptive:
-            if self.infectious_count > 100:
+            if self.infectious_count > 30:
                 return True
         return False
 

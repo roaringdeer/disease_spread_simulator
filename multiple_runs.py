@@ -9,25 +9,26 @@ def main():
     # parameters of each scenario
     # hygiene, probability of quarantine, right quarantine assessment modifier, wrong quarantine assessment modifier
     # ideal tests
-    parameters = {"odniesienie": {"hygiene": 1,
-                                  "probability_quarantine": 0,
-                                  "adaptive": False},
-                  "lepsza_higiena": {"hygiene": 0.5,
-                                     "probability_quarantine": 0,
-                                     "adaptive": True},
-                  "kwarantanna": {"hygiene": 1,
-                                  "probability_quarantine": 5,
-                                  "adaptive": True},
-                  }
 
-    names = ["param_set_1",
-             "param_set_2",
-             "param_set_3",
-             "param_set_4",
-             "param_set_5",
-             "param_set_6",
-             "param_set_7",
-             "param_set_8"]
+    parameters = {
+        "lepsza_higiena": {"hygiene": 0.5,
+                           "probability_quarantine": 0,
+                           "adaptive": True},
+        "kwarantanna": {"hygiene": 1,
+                        "probability_quarantine": 5,
+                        "adaptive": True},
+        "odniesienie": {"hygiene": 1,
+                        "probability_quarantine": 0,
+                        "adaptive": False}}
+
+    # names = ["param_set_1",
+             # "param_set_2",
+             # "param_set_3",
+             # "param_set_4",
+             # "param_set_5",
+             # "param_set_6",
+             # "param_set_7",
+             # "param_set_8"]
 
     # list of collected data
     data_logger = []
