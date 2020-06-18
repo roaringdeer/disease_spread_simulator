@@ -62,6 +62,9 @@ mast_param = {
     "initial_infectious_count": {
         "dorms": 1,
         "outside": 0
+    },
+    "dynamic_action": {
+        "infectious_threshold": 50
     }
 }
 

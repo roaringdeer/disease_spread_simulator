@@ -422,7 +422,7 @@ class Mast5G:
     # sprawdzenie czy trzeba zacząć działania adaptacyjne
     def __is_dynamic_action_required(self):
         if self.is_adaptive:
-            if self.infectious_count > 30:
+            if self.infectious_count > Configuration.mast_param["dynamic_action"]["infectious_threshold"]:
                 return True
         return False
 
