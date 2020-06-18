@@ -198,18 +198,18 @@ class Mast5G:
         # self.susceptible_count, self.infectious_count, self.recovered_count, self.deceased_count])
 
         # wypisanie aktualnego stanu symulacji w danym kroku
-        # print(
-        #     "{}\t | S: {:06} | I: {:06} | R: {:06} | D: {:06}| <FREE: {:06} | QUARANTINE: {:06}| GRAVEYARD: {:06}>".
-        #         format(self.clk,
-        #                self.susceptible_count,
-        #                self.infectious_count,
-        #                self.recovered_count,
-        #                self.deceased_count,
-        #                free,
-        #                len(self.__tracking["quarantine"]),
-        #                len(self.__tracking["graveyard"])))
+        print(
+            "{}\t | S: {:06} | I: {:06} | R: {:06} | D: {:06}| <FREE: {:06} | QUARANTINE: {:06}| GRAVEYARD: {:06}>".
+                format(self.clk,
+                       self.susceptible_count,
+                       self.infectious_count,
+                       self.recovered_count,
+                       self.deceased_count,
+                       free,
+                       len(self.__tracking["quarantine"]),
+                       len(self.__tracking["graveyard"])))
 
-        print(self.infectious_count, Configuration.mast_param["probability"]["quarantine"])
+        # print(self.infectious_count, Configuration.mast_param["probability"]["quarantine"])
 
         if self.__is_dynamic_action_required():
             self.__dynamic_actions()

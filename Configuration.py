@@ -64,7 +64,7 @@ mast_param = {
         "outside": 0
     },
     "dynamic_action": {
-        "infectious_threshold": 50
+        "infectious_threshold": 100
     }
 }
 
