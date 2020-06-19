@@ -11,12 +11,12 @@ def main():
     # ideal tests
 
     parameters = {
+        "kwarantanna": {"hygiene": 1,
+                        "probability_quarantine": 9,
+                        "adaptive": True},
         "lepsza_higiena": {"hygiene": 0.5,
                            "probability_quarantine": 0,
                            "adaptive": True},
-        "kwarantanna": {"hygiene": 1,
-                        "probability_quarantine": 5,
-                        "adaptive": True},
         "odniesienie": {"hygiene": 1,
                         "probability_quarantine": 0,
                         "adaptive": False}}

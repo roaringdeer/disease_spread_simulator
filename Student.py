@@ -54,6 +54,7 @@ class Student:
         if total_count > 0:
             prob = (infectious_count / total_count) * infectiousness * self.hygiene
         # print("prob", prob, r)
+        print(prob)
         if r < prob:
             # print('yay')
             return True
