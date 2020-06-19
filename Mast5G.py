@@ -199,16 +199,17 @@ class Mast5G:
         # self.susceptible_count, self.infectious_count, self.recovered_count, self.deceased_count])
 
         # wypisanie aktualnego stanu symulacji w danym kroku
-        print(
-            "{}\t | S: {:06} | I: {:06} | R: {:06} | D: {:06}| <FREE: {:06} | QUARANTINE: {:06}| GRAVEYARD: {:06}>".
-                format(self.clk,
-                       self.susceptible_count,
-                       self.infectious_count,
-                       self.recovered_count,
-                       self.deceased_count,
-                       free,
-                       len(self.__tracking["quarantine"]),
-                       len(self.__tracking["graveyard"])))
+        printer = "{}\t".format(self.clk)
+        printer += "| S: {:06} | I: {:06} | R: {:06} | D: {:06}|".format(self.susceptible_count,
+                                                                         self.infectious_count,
+                                                                         self.recovered_count,
+                                                                         self.deceased_count)
+        printer += " <FREE: {:06} | QUARANTINE: {:06}| GRAVEYARD: {:06}>".format(free,
+                                                                                 len(self.__tracking["quarantine"]),
+                                                                                 len(self.__tracking["graveyard"]))
+        printer += "\t// Q_PROB: {:2} // HYG: {:2} //".format(Configuration.mast_param["probability"]["quarantine"],
+                                                              Configuration.student_param["hygiene"])
+        print(printer)
 
         # print(self.infectious_count, Configuration.mast_param["probability"]["quarantine"])
 
@@ -309,6 +310,8 @@ class Mast5G:
                             self.sheeple[student_id].timeout = self.__get_timeout(self.sheeple[student_id].action)
                         if enter_building_flag:
                             if self.__is_quarantined(student_id) and to_node in self.agh_graph.campus_buildings:
+                                new_tracking["quarantine"].append(student_id)
+                            elif self.__is_quarantined(student_id) and to_node in self.agh_graph.sport_centre:
                                 new_tracking["quarantine"].append(student_id)
                             else:
                                 new_tracking[to_node].append(student_id)

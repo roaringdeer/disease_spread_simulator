@@ -88,7 +88,7 @@ def default():
         # czas trwania bycia zarażonym
         "infected_counter": {
             "min": 654 * 12,
-            "max": 654 * 13,
+            "max": 654 * 20,
         }
     }
 
