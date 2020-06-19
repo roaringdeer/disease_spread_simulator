@@ -1,18 +1,18 @@
 import random
-from Configuration import student_param as sim_param
+import Configuration
 from Enumeration import State, Action
 
 
 class Student:
     def __init__(self, home=0):
         self.home = home
-        self.hygiene = sim_param["hygiene"]
-        self.symptoms = sim_param["symptoms"]
+        self.hygiene = Configuration.student_param["hygiene"]
+        self.symptoms = Configuration.student_param["symptoms"]
         self.action = Action.GoHome
         self.path = []
         self.state = State.Susceptible
-        self.infected_counter = random.randrange(sim_param["infected_counter"]["min"],
-                                                 sim_param["infected_counter"]["max"])
+        self.infected_counter = random.randrange(Configuration.student_param["infected_counter"]["min"],
+                                                 Configuration.student_param["infected_counter"]["max"])
         self.timeout = 0
 
     # wypisanie stanu studenta // do użycia w postaci print(student)
@@ -54,7 +54,7 @@ class Student:
         if total_count > 0:
             prob = (infectious_count / total_count) * infectiousness * self.hygiene
         # print("prob", prob, r)
-        print(prob)
+        # print(prob)
         if r < prob:
             # print('yay')
             return True
@@ -65,7 +65,7 @@ class Student:
     def __is_recovered(self):
         random.seed()
         r = random.random()
-        prob = sim_param["probability"]["recovery"]
+        prob = Configuration.student_param["probability"]["recovery"]
         if r*100 < prob:
             return True
         return False

@@ -1,13 +1,15 @@
 import random
 import sys
 from copy import deepcopy
-from Configuration import graph_param as sim_param
+import Configuration
 import ExcelReader as exr
 from Enumeration import NodeType
 
 
 class AGHGraph:
     def __init__(self):
+        Configuration.display()
+
         # wczytanie macierzy kosztów
         self.cost_matrix = exr.go()
 
@@ -29,13 +31,13 @@ class AGHGraph:
 
         # współczynnik zarażalności w zależności od miejsca
         self.place_infectiousness = {
-            NodeType.Dormitory: sim_param["infectiousness"]["dormitory"],
-            NodeType.CampusBuilding: sim_param["infectiousness"]["campus_building"],
-            NodeType.SportCentre: sim_param["infectiousness"]["sport_centre"],
-            NodeType.PartyZone: sim_param["infectiousness"]["party_zone"],
-            NodeType.Road: sim_param["infectiousness"]["road"],
-            NodeType.Quarantine: sim_param["infectiousness"]["quarantine"],
-            NodeType.Graveyard: sim_param["infectiousness"]["graveyard"]
+            NodeType.Dormitory: Configuration.graph_param["infectiousness"]["dormitory"],
+            NodeType.CampusBuilding: Configuration.graph_param["infectiousness"]["campus_building"],
+            NodeType.SportCentre: Configuration.graph_param["infectiousness"]["sport_centre"],
+            NodeType.PartyZone: Configuration.graph_param["infectiousness"]["party_zone"],
+            NodeType.Road: Configuration.graph_param["infectiousness"]["road"],
+            NodeType.Quarantine: Configuration.graph_param["infectiousness"]["quarantine"],
+            NodeType.Graveyard: Configuration.graph_param["infectiousness"]["graveyard"]
         }
 
         # stworzenie wszystkich tras za pomocą algorytmu Dijkstry

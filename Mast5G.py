@@ -11,7 +11,6 @@ class Mast5G:
     def __init__(self, is_adaptive: bool = False, adaptive_params: dict = None):
         # stworzenie zegara
         self.clk = Clock(5231)  # 1 tick przed 8:00
-
         # stworzenie grafu
         self.agh_graph = AGHGraph()
 
@@ -45,7 +44,9 @@ class Mast5G:
                               "recovered_count": [],
                               "deceased_count": [],
                               "free": [],
-                              "quarantined": []}
+                              "quarantined": [],
+                              "param_hygiene": [],
+                              "param_quarantine_prob": []}
         self.is_adaptive = is_adaptive
         self.adaptive_params = adaptive_params
 
@@ -418,6 +419,8 @@ class Mast5G:
         self.logged_values["deceased_count"].append(self.deceased_count)
         self.logged_values["free"].append(free)
         self.logged_values["quarantined"].append(len(self.__tracking["quarantine"]))
+        self.logged_values["param_hygiene"].append(Configuration.student_param["hygiene"])
+        self.logged_values["param_quarantine_prob"].append(Configuration.mast_param["probability"]["quarantine"])
 
     # sprawdzenie czy trzeba zacząć działania adaptacyjne
     def __is_dynamic_action_required(self):
